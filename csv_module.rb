@@ -28,6 +28,16 @@ module ActsAsCsv
   end
 end
 
+class CsvRow
+  def self.method_missing name, *args
+    values[name.to_s]
+  end
+
+  def initialize
+    @values = []
+  end
+end
+
 class RubyCsv
   include ActsAsCsv
   acts_as_csv
