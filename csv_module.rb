@@ -28,6 +28,22 @@ module ActsAsCsv
       end
     end
     
+    def eachx(&block)
+      @csv_contents.each do |row|
+        r = CsvRow.new(@headers, row)
+        block.call r
+      end
+      puts "huh"
+    end
+    
+    def eachy(&block)
+      tests = ["test a", "test b", "test c"]
+      tests.each do |test|
+        block.call test
+      end
+      nil
+    end
+    
     def each1(&block)
       r = CsvRow.new(@headers, @csv_contents[0])
       block.call r
@@ -74,7 +90,10 @@ puts "Day 3 Self-Study"
 puts "Why doesn't this work ..."
 puts m.each {|row| puts "one [" + row.one + "]"}
 puts
-
+puts "And this is weird ..."
+puts m.eachx {|row| puts "one [" + row.one + "]"}
+puts m.eachy {|header| puts header}
+puts
 puts "But these do ..."
 m.csv_contents.each do |row|
   r = CsvRow.new(m.headers, row)
